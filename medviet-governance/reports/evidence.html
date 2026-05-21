@@ -1,0 +1,99 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>MedViet Lab 24 Evidence</title>
+<style>
+body { margin: 0; font-family: Arial, sans-serif; color: #172026; background: #f5f7f8; }
+header { background: #0f3d3e; color: white; padding: 28px 36px; }
+h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: 0; }
+main { padding: 28px 36px; display: grid; gap: 18px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+section { background: white; border: 1px solid #d9e1e2; border-radius: 8px; padding: 18px; }
+h2 { font-size: 18px; margin: 0 0 12px; color: #0f3d3e; }
+.badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.badge { background: #e8f4ef; border: 1px solid #b9d8ca; border-radius: 999px; padding: 7px 10px; font-weight: 700; color: #164b35; }
+pre { white-space: pre-wrap; font-size: 12px; line-height: 1.45; background: #111827; color: #e5e7eb; border-radius: 6px; padding: 12px; max-height: 310px; overflow: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { border: 1px solid #d9e1e2; padding: 6px; text-align: left; vertical-align: top; }
+th { background: #edf2f3; }
+.full { grid-column: 1 / -1; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } main { padding: 18px; } header { padding: 22px 18px; } }
+</style>
+</head>
+<body>
+<header>
+<h1>MedViet Data Governance & Security Lab Evidence</h1>
+<div>Generated on 2026-05-21, Asia/Saigon</div>
+<div class="badges"><span class="badge">Tests: 10 passed</span><span class="badge">PII detection: 100%</span><span class="badge">RBAC: enforced</span><span class="badge">Encryption: AES-256-GCM</span><span class="badge">Bandit findings: 0</span><span class="badge">Verified secrets: 0</span></div>
+</header>
+<main>
+<section class="full"><h2>PII Columns</h2><p><strong>Direct PII:</strong> ho_ten, cccd, ngay_sinh, so_dien_thoai, email, dia_chi, bac_si_phu_trach. <strong>Pseudonymous ID:</strong> patient_id. <strong>Non-PII kept for training:</strong> benh, ket_qua_xet_nghiem, ngay_kham.</p></section>
+<section class="full"><h2>Sanitized Data Preview</h2><table>
+<colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<tr><th>patient_id</th><th>ho_ten</th><th>cccd</th><th>so_dien_thoai</th><th>email</th><th>benh</th></tr>
+<tr><td>bdd640fb-...-317fa3b1799d</td><td>&lt;PERSON_REPLACED&gt;</td><td>&lt;VN_CCCD_REPLACED&gt;</td><td>&lt;VN_PHONE_REPLACED&gt;</td><td>&lt;EMAIL_REPLACED&gt;</td><td>Khỏe mạnh</td></tr>
+<tr><td>562b0f79-...-ea63371ecd7b</td><td>&lt;PERSON_REPLACED&gt;</td><td>&lt;VN_CCCD_REPLACED&gt;</td><td>&lt;VN_PHONE_REPLACED&gt;</td><td>&lt;EMAIL_REPLACED&gt;</td><td>Khỏe mạnh</td></tr>
+<tr><td>a2bc372f-...-4739614ff3d7</td><td>&lt;PERSON_REPLACED&gt;</td><td>&lt;VN_CCCD_REPLACED&gt;</td><td>&lt;VN_PHONE_REPLACED&gt;</td><td>&lt;EMAIL_REPLACED&gt;</td><td>Tiểu đường</td></tr>
+<tr><td>7fcd9eb1-...-b16f508ebad7</td><td>&lt;PERSON_REPLACED&gt;</td><td>&lt;VN_CCCD_REPLACED&gt;</td><td>&lt;VN_PHONE_REPLACED&gt;</td><td>&lt;EMAIL_REPLACED&gt;</td><td>Khỏe mạnh</td></tr>
+<tr><td>988c24c9-...-1c4510435a10</td><td>&lt;PERSON_REPLACED&gt;</td><td>&lt;VN_CCCD_REPLACED&gt;</td><td>&lt;VN_PHONE_REPLACED&gt;</td><td>&lt;EMAIL_REPLACED&gt;</td><td>Huyết &#225;p cao</td></tr>
+</table>
+</section>
+<div class="grid">
+<section><h2>Pytest Results</h2><pre>============================= test session starts =============================
+platform win32 -- Python 3.12.0, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\Administrator\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Day2\Day24-Track02-Lab-Assignment\medviet-governance
+plugins: anyio-4.13.0, Faker-37.12.0, langsmith-0.8.1
+collecting ... collected 10 items
+
+tests/test_api_rbac.py::test_rbac_permission_matrix PASSED               [ 10%]
+tests/test_api_rbac.py::test_missing_token_is_401 PASSED                 [ 20%]
+tests/test_encryption.py::test_envelope_encryption_round_trip PASSED     [ 30%]
+tests/test_pii.py::TestPIIDetection::test_cccd_detected PASSED           [ 40%]
+tests/test_pii.py::TestPIIDetection::test_phone_detected PASSED          [ 50%]
+tests/test_pii.py::TestPIIDetection::test_email_detected PASSED          [ 60%]
+tests/test_pii.py::TestPIIDetection::test_detection_rate_above_95_percent PASSED [ 70%]
+tests/test_pii.py::TestAnonymization::test_pii_not_in_output PASSED      [ 80%]
+tests/test_pii.py::TestAnonymization::test_non_pii_columns_unchanged PASSED [ 90%]
+tests/test_quality.py::test_validate_anonymized_data_success PASSED      [100%]
+
+============================= 10 passed in 0.90s ==============================
+</pre></section>
+<section><h2>Security Hook</h2><pre>Running security checks...
+Potential secret found in staged file: medviet-governance/test_secret.py
+hook_exit_code=1
+</pre></section>
+<section><h2>Bandit Summary</h2><pre>Bandit findings: 0; medium/high findings: 0</pre></section>
+<section><h2>TruffleHog Scan</h2><pre>🐷🔑🐷  TruffleHog. Unearth your secrets. 🐷🔑🐷
+
+2026-05-21T23:24:24+07:00	info-0	trufflehog	running source	{&quot;source_manager_worker_id&quot;: &quot;jt0XQ&quot;, &quot;with_units&quot;: true}
+2026-05-21T23:24:24+07:00	info-0	trufflehog	scanning repo	{&quot;source_manager_worker_id&quot;: &quot;jt0XQ&quot;, &quot;unit_kind&quot;: &quot;dir&quot;, &quot;unit&quot;: &quot;C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\trufflehog-9652-738424084&quot;, &quot;repo&quot;: &quot;file://D:/Day2/Day24-Track02-Lab-Assignment&quot;}
+2026-05-21T23:24:24+07:00	info-0	trufflehog	finished scanning	{&quot;chunks&quot;: 19, &quot;bytes&quot;: 54904, &quot;verified_secrets&quot;: 0, &quot;unverified_secrets&quot;: 0, &quot;scan_duration&quot;: &quot;331.1344ms&quot;, &quot;trufflehog_version&quot;: &quot;3.95.2&quot;, &quot;verification_caching&quot;: {&quot;Hits&quot;:0,&quot;Misses&quot;:0,&quot;HitsWasted&quot;:0,&quot;AttemptsSaved&quot;:0,&quot;VerificationTimeSpentMS&quot;:0}}
+</pre></section>
+<section><h2>Encryption Round Trip</h2><pre>algorithm: AES-256-GCM
+roundtrip: True
+</pre></section>
+<section><h2>Data Quality</h2><pre>{&#39;success&#39;: True, &#39;failed_checks&#39;: [], &#39;stats&#39;: {&#39;total_rows&#39;: 200, &#39;columns&#39;: [&#39;patient_id&#39;, &#39;ho_ten&#39;, &#39;cccd&#39;, &#39;ngay_sinh&#39;, &#39;so_dien_thoai&#39;, &#39;email&#39;, &#39;dia_chi&#39;, &#39;benh&#39;, &#39;ket_qua_xet_nghiem&#39;, &#39;bac_si_phu_trach&#39;, &#39;ngay_kham&#39;], &#39;original_rows&#39;: 200}}
+</pre></section>
+<section class="full"><h2>OPA Policy Test</h2><pre>{
+  &quot;result&quot;: [
+    {
+      &quot;expressions&quot;: [
+        {
+          &quot;value&quot;: false,
+          &quot;text&quot;: &quot;data.medviet.data_access.allow&quot;,
+          &quot;location&quot;: {
+            &quot;row&quot;: 1,
+            &quot;col&quot;: 1
+          }
+        }
+      ]
+    }
+  ]
+}
+</pre></section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.0, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\Administrator\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Day2\Day24-Track02-Lab-Assignment\medviet-governance
+plugins: anyio-4.13.0, Faker-37.12.0, langsmith-0.8.1
+collecting ... collected 10 items
+
+tests/test_api_rbac.py::test_rbac_permission_matrix PASSED               [ 10%]
+tests/test_api_rbac.py::test_missing_token_is_401 PASSED                 [ 20%]
+tests/test_encryption.py::test_envelope_encryption_round_trip PASSED     [ 30%]
+tests/test_pii.py::TestPIIDetection::test_cccd_detected PASSED           [ 40%]
+tests/test_pii.py::TestPIIDetection::test_phone_detected PASSED          [ 50%]
+tests/test_pii.py::TestPIIDetection::test_email_detected PASSED          [ 60%]
+tests/test_pii.py::TestPIIDetection::test_detection_rate_above_95_percent PASSED [ 70%]
+tests/test_pii.py::TestAnonymization::test_pii_not_in_output PASSED      [ 80%]
+tests/test_pii.py::TestAnonymization::test_non_pii_columns_unchanged PASSED [ 90%]
+tests/test_quality.py::test_validate_anonymized_data_success PASSED      [100%]
+
+============================= 10 passed in 0.90s ==============================

@@ -1,10 +1,12 @@
 # scripts/generate_data.py
+import os
 import pandas as pd
 from faker import Faker
 import random
 
 fake = Faker("vi_VN")
 Faker.seed(42)
+random.seed(42)
 
 def generate_patients(n=200):
     records = []
@@ -12,7 +14,7 @@ def generate_patients(n=200):
         records.append({
             "patient_id": fake.uuid4(),
             "ho_ten": fake.name(),
-            "cccd": f"{random.randint(0,9)}" + 
+            "cccd": f"{random.randint(1,9)}" +
                     "".join([str(random.randint(0,9)) for _ in range(11)]),
             "ngay_sinh": fake.date_of_birth(minimum_age=18, maximum_age=90)
                               .strftime("%d/%m/%Y"),
@@ -28,7 +30,13 @@ def generate_patients(n=200):
         })
     return pd.DataFrame(records)
 
-df = generate_patients()
-df.to_csv("data/raw/patients_raw.csv", index=False)
-print(f"Generated {len(df)} patient records")
-print(df.head(3))
+def main():
+    df = generate_patients()
+    os.makedirs("data/raw", exist_ok=True)
+    df.to_csv("data/raw/patients_raw.csv", index=False)
+    print(f"Generated {len(df)} patient records")
+    print(df.head(3))
+
+
+if __name__ == "__main__":
+    main()

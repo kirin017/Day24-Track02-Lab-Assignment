@@ -1,0 +1,3 @@
+Running security checks...
+Potential secret found in staged file: medviet-governance/test_secret.py
+hook_exit_code=1

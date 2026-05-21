@@ -1,0 +1,9 @@
+# Local/generated artifacts
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# Sensitive or non-submission outputs
+.vault_key
+data/raw/
+lab24_submission*.zip

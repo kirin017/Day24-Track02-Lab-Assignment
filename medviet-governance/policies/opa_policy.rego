@@ -8,33 +8,46 @@ default allow := false
 
 # Admin được phép tất cả
 allow if {
+    not deny
     input.user.role == "admin"
 }
 
 # ML Engineer được đọc training data và model artifacts
 allow if {
+    not deny
     input.user.role == "ml_engineer"
-    input.resource in {"training_data", "model_artifacts"}
+    input.resource in {"training_data", "model_artifacts", "aggregated_metrics"}
     input.action in {"read", "write"}
 }
 
-# TODO: ML Engineer KHÔNG được delete production data
+# ML Engineer KHÔNG được delete production data
 deny if {
     input.user.role == "ml_engineer"
     input.resource == "production_data"
     input.action == "delete"
 }
 
-# TODO: Data Analyst chỉ được đọc aggregated metrics và viết reports
+# Data Analyst chỉ được đọc aggregated metrics và viết reports
 allow if {
+    not deny
     input.user.role == "data_analyst"
-    # Hoàn thành rule này
+    input.resource == "aggregated_metrics"
+    input.action == "read"
 }
 
-# TODO: Intern chỉ được access sandbox
 allow if {
+    not deny
+    input.user.role == "data_analyst"
+    input.resource == "reports"
+    input.action == "write"
+}
+
+# Intern chỉ được access sandbox
+allow if {
+    not deny
     input.user.role == "intern"
-    # Hoàn thành rule này
+    input.resource == "sandbox_data"
+    input.action in {"read", "write"}
 }
 
 # Rule: không ai được export restricted data ra ngoài VN servers
